@@ -36,6 +36,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# temp / reference files
+stitch_reference_temp/
+stitch_techlearning_professional_service_website.zip
+extra-portfolio/
+ตัวอย่างผลงาน-*.zip
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

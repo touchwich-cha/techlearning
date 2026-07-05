@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AboutPage, ContactPage, HomePage, PortfolioPage, ProcessPage, ServicesPage, Shell } from "../../site";
-import type { Locale } from "../../site-data";
+import { Shell } from "@/components/layout/Shell";
+import { HomePage } from "@/components/pages/HomePage";
+import { PortfolioPage } from "@/components/pages/PortfolioPage";
+import { ServicesPage } from "@/components/pages/ServicesPage";
+import { ProcessPage } from "@/components/pages/ProcessPage";
+import { AboutPage } from "@/components/pages/AboutPage";
+import { ContactPage } from "@/components/pages/ContactPage";
+import type { Locale } from "@/app/site-data";
 
 const pages = ["", "services", "portfolio", "process", "about", "contact"] as const;
 
@@ -24,6 +30,14 @@ export default async function LocalizedPage({ params }: { params: Promise<{ loca
   const locale = rawLocale as Locale;
   const page = slug[0] || "";
   if (slug.length > 1 || !pages.includes(page as (typeof pages)[number])) notFound();
-  const content = page === "portfolio" ? <PortfolioPage locale={locale} /> : page === "services" ? <ServicesPage locale={locale} /> : page === "process" ? <ProcessPage locale={locale} /> : page === "about" ? <AboutPage locale={locale} /> : page === "contact" ? <ContactPage locale={locale} /> : <HomePage locale={locale} />;
+
+  const content =
+    page === "portfolio" ? <PortfolioPage locale={locale} /> :
+    page === "services" ? <ServicesPage locale={locale} /> :
+    page === "process" ? <ProcessPage locale={locale} /> :
+    page === "about" ? <AboutPage locale={locale} /> :
+    page === "contact" ? <ContactPage locale={locale} /> :
+    <HomePage locale={locale} />;
+
   return <Shell locale={locale} page={page}>{content}</Shell>;
 }
