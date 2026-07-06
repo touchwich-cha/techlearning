@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { copy, nav, type Locale } from "@/app/site-data";
@@ -9,6 +12,24 @@ function imagePath(slug: string, name: string) {
 export function Shell({ locale, page, children }: { locale: Locale; page: string; children: React.ReactNode }) {
   const opposite = locale === "th" ? "en" : "th";
   const base = `/${locale}`;
+
+  useEffect(() => {
+    const header = document.querySelector(".site-header");
+    if (!header) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.boundingClientRect.top < 0) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      },
+      { rootMargin: "-1px 0px 0px 0px", threshold: 0 }
+    );
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="site-shell">
       <header className="site-header">
