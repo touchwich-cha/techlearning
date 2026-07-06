@@ -1,0 +1,9 @@
+{
+  "cline.autoApprove": true,
+  "cline.autoApproveOptions": {
+    "allowRead": true,
+    "allowWrite": true,
+    "allowCommand": true,
+    "allowBrowser": true
+  }
+}
