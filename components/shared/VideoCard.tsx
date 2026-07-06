@@ -27,6 +27,13 @@ export function VideoCard({ locale }: VideoCardProps) {
         </p>
       </div>
       <div className="video-wrapper" style={{ marginTop: "var(--spacing-lg)" }}>
+        <div className="video-play-overlay">
+          <div className="video-play-btn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
         <iframe
           src={embedUrl}
           title={locale === "th" ? "วิดีโอแนะนำ TechLearning" : "TechLearning featured video"}
@@ -36,14 +43,17 @@ export function VideoCard({ locale }: VideoCardProps) {
           loading="lazy"
         />
       </div>
-      <div style={{ marginTop: "var(--spacing-md)" }}>
+      <div className="video-actions" style={{ marginTop: "var(--spacing-md)", display: "flex", gap: "12px", flexWrap: "wrap" }}>
         <Link
           className="button outline"
           href={`https://youtu.be/${youtubeVideoId}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {locale === "th" ? "เปิดใน YouTube" : "Watch on YouTube"} <span>↗</span>
+          {locale === "th" ? "เปิดใน YouTube" : "Watch on YouTube"}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+          </svg>
         </Link>
       </div>
     </section>
