@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -41,6 +42,7 @@ stitch_reference_temp/
 stitch_techlearning_professional_service_website.zip
 extra-portfolio/
 ตัวอย่างผลงาน-*.zip
+SCG/
 
 # typescript
 *.tsbuildinfo
