@@ -8,6 +8,7 @@ import { ProjectCard } from "@/components/shared/ProjectCard";
 import { ServicesPreview } from "@/components/shared/ServicesPreview";
 import { CallToAction } from "@/components/shared/CallToAction";
 import { VideoCard } from "@/components/shared/VideoCard";
+import { FeatureGrid } from "@/components/shared/FeatureGrid";
 
 function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
   const [display, setDisplay] = useState(0);
@@ -66,8 +67,13 @@ export function HomePage({ locale }: { locale: Locale }) {
             <span className="hero-badge-dot" />
             {locale === "th" ? "สื่ออบรมและระบบ HR ที่ใช้งานจริง" : "Training media & HR systems, proven in production"}
           </span>
-          <p className="eyebrow">{t.eyebrow}</p>
-          <h1>{t.hero}</h1>
+          <h1>
+            {locale === "th" ? (
+              <>สื่ออบรมที่คนอยากดู <span className="gradient-text">ระบบงาน HR</span> ที่ทำงานแทนคุณ</>
+            ) : (
+              <>Training media people want to watch. <span className="gradient-text">HR systems</span> that work for you.</>
+            )}
+          </h1>
           <p className="lede">{t.intro}</p>
           <div className="hero-actions">
             <Link className="button" href={`/${locale}/portfolio`}>
@@ -84,17 +90,25 @@ export function HomePage({ locale }: { locale: Locale }) {
             </Link>
           </div>
         </div>
-        <div className="hero-visual">
-          <Image
-            src="/projects/factory-lighting/factory-lighting-01.webp"
-            alt={locale === "th" ? "ตัวอย่างสื่ออบรม Food Safety แบบ 3D" : "3D food-safety training media example"}
-            fill
-            sizes="(max-width: 900px) 100vw, 48vw"
-            priority
-          />
-          <span className="visual-label">Food Safety Thailand series / 2026</span>
-          <div className="hero-float-chip">
-            <span className="hero-float-chip-icon">
+        <div className="hero-stage">
+          <div className="hero-visual">
+            <Image
+              src="/projects/factory-lighting/factory-lighting-01.webp"
+              alt={locale === "th" ? "ตัวอย่างสื่ออบรม Food Safety แบบ 3D" : "3D food-safety training media example"}
+              fill
+              sizes="(max-width: 900px) 100vw, 48vw"
+              priority
+            />
+            <span className="visual-label">Food Safety Thailand series / 2026</span>
+            <div
+              className="hero-visual-glow"
+              style={mousePos ? {
+                background: `radial-gradient(600px circle at ${mousePos.x - window.innerWidth * 0.55}px ${mousePos.y - 100}px, rgba(45,212,191,0.1), transparent 50%)`,
+              } : undefined}
+            />
+          </div>
+          <div className="hero-float hero-float-a">
+            <span className="hero-float-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
@@ -104,12 +118,29 @@ export function HomePage({ locale }: { locale: Locale }) {
               {locale === "th" ? "โมดูล Food Safety" : "Food Safety modules"}
             </span>
           </div>
-          <div
-            className="hero-visual-glow"
-            style={mousePos ? {
-              background: `radial-gradient(600px circle at ${mousePos.x - window.innerWidth * 0.55}px ${mousePos.y - 100}px, rgba(45,212,191,0.1), transparent 50%)`,
-            } : undefined}
-          />
+          <div className="hero-float hero-float-b">
+            <span className="hero-float-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+              </svg>
+            </span>
+            <span>
+              <b>300+</b>
+              {locale === "th" ? "เฟรมผลิตจริง" : "frames produced"}
+            </span>
+          </div>
+          <div className="hero-float hero-float-c">
+            <span className="hero-float-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </span>
+            <span>
+              <b>6</b>
+              {locale === "th" ? "ระบบ HR ใช้งานจริง" : "HR systems live"}
+            </span>
+          </div>
         </div>
       </section>
 
@@ -134,6 +165,8 @@ export function HomePage({ locale }: { locale: Locale }) {
           ))}
         </div>
       </div>
+
+      <FeatureGrid locale={locale} />
 
       {/* ─── SELECTED WORK ─── */}
       <section className="section-pad work-section">

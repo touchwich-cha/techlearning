@@ -141,6 +141,71 @@ export const servicePillars = [
   },
 ] as const;
 
+// ─── Feature grid highlights (Home, light empeo-style card grid) ───
+
+export const featureHighlights = [
+  {
+    icon: "scene",
+    tone: "teal",
+    title: { th: "ชุดภาพเล่าเรื่อง 3D", en: "3D story scenes" },
+    description: {
+      th: "จำลองสถานการณ์จริงในโรงงานด้วยตัวละคร 3D ให้พนักงานจดจำได้มากกว่าคู่มือกระดาษ",
+      en: "Simulate real factory situations with 3D characters — more memorable than a paper manual.",
+    },
+    tags: [{ th: "300+ เฟรม", en: "300+ frames" }, { th: "10 โมดูล", en: "10 modules" }],
+  },
+  {
+    icon: "video",
+    tone: "mint",
+    title: { th: "วิดีโอพร้อมเผยแพร่", en: "Publish-ready video" },
+    description: {
+      th: "ผลิตทั้งจอกว้าง 16:9 และแนวตั้ง 9:16 พร้อมใช้บน YouTube, LMS หรือมือถือ",
+      en: "Produced in both 16:9 widescreen and 9:16 vertical — ready for YouTube, your LMS, or mobile.",
+    },
+    tags: [{ th: "16:9", en: "16:9" }, { th: "9:16", en: "9:16" }],
+  },
+  {
+    icon: "inbox",
+    tone: "amber",
+    title: { th: "คัดกรองใบสมัครอัตโนมัติ", en: "Automated resume screening" },
+    description: {
+      th: "อ่านอีเมลสมัครงาน แยกแผนก จัดเก็บไฟล์ และแจ้งเตือนทีมโดยไม่ต้องเปิดอ่านเอง",
+      en: "Reads application emails, sorts by department, files attachments, and alerts the team.",
+    },
+    tags: [{ th: "Gmail", en: "Gmail" }, { th: "Google Drive", en: "Google Drive" }],
+  },
+  {
+    icon: "rocket",
+    tone: "teal",
+    title: { th: "Onboarding ครบวงจร", en: "End-to-end onboarding" },
+    description: {
+      th: "ตั้งแต่ขออัตรากำลังจนถึงเตือนประเมินทดลองงานอัตโนมัติ",
+      en: "From manpower requests to automatic probation-review reminders.",
+    },
+    tags: [{ th: "Deploy 30 เวอร์ชัน", en: "30 deployments" }, { th: "4 บทบาท", en: "4 roles" }],
+  },
+  {
+    icon: "chart",
+    tone: "mint",
+    title: { th: "ประเมิน KPI ออนไลน์", en: "Online KPI evaluation" },
+    description: {
+      th: "เก็บคะแนนพร้อมสายอนุมัติ ล็อกผลเมื่ออนุมัติแล้ว ตรวจสอบย้อนหลังได้ทุกรายการ",
+      en: "Scoring with an approval chain, locked results, and a full audit trail.",
+    },
+    tags: [{ th: "Audit log", en: "Audit log" }, { th: "CSV / PDF", en: "CSV / PDF" }],
+  },
+  {
+    icon: "shield",
+    tone: "amber",
+    title: { th: "บันทึกงานภาคสนาม", en: "Field-work logging" },
+    description: {
+      th: "เช็คอิน ตรวจจุด บันทึกผู้มาติดต่อพร้อมรูปถ่าย แจ้งเตือนเข้า LINE ทันที",
+      en: "Check-ins, patrol points, visitor logs with photos, and instant LINE alerts.",
+    },
+    tags: [{ th: "GPS / รูปถ่าย", en: "GPS / photos" }, { th: "LINE Alert", en: "LINE alert" }],
+  },
+] as const;
+
 // ─── HR system case studies (anonymized: business type only, all facts verified) ───
 
 export type CaseStudy = {
@@ -399,20 +464,19 @@ export const projectGroups = [
     aspect: "wide",
   },
   {
-    slug: "location-requirements-story",
-    title: { th: "ซีรีส์เล่าเรื่อง — ข้อกำหนดทำเลที่ตั้ง (GMP420)", en: "Story series — Location requirements (GMP420)" },
-    type: { th: "คัด 10 จาก 95 เฟรม", en: "10 of 95 frames" },
+    slug: "gmp-compliance-audit",
+    title: { th: "Food Safety — ตรวจสอบตามเกณฑ์ GMP420", en: "Food Safety — GMP420 compliance checks" },
+    type: { th: "8 ฉากตรวจสอบมาตรฐาน", en: "8 compliance-check scenes" },
     description: {
-      th: "เปิดเรื่องด้วยนิทานก่อนพาเข้าเนื้อหาจริงในโรงงาน — ตัวอย่างการออกแบบ hook ให้ผู้เรียนอยากติดตามบทเรียนจนจบ",
-      en: "A storybook opening that hooks learners before the factory content begins — narrative design in action.",
+      th: "ลำดับภาพการตรวจสอบตามเกณฑ์ GMP420 ตั้งแต่ป้ายเตือนหน้าประตู เครื่องวัดคุณภาพอากาศ การตรวจสวอบในห้องคลีนรูม จนถึงไลน์บรรจุ",
+      en: "A GMP420 compliance-check sequence — from doorway warning signage and air-quality meters to cleanroom swab testing and the packing line.",
     },
     images: [
-      "location-requirements-story-01.webp", "location-requirements-story-02.webp", "location-requirements-story-03.webp",
-      "location-requirements-story-04.webp", "location-requirements-story-05.webp", "location-requirements-story-06.webp",
-      "location-requirements-story-07.webp", "location-requirements-story-08.webp", "location-requirements-story-09.webp",
-      "location-requirements-story-10.webp",
+      "gmp-compliance-audit-01.webp", "gmp-compliance-audit-02.webp", "gmp-compliance-audit-03.webp",
+      "gmp-compliance-audit-04.webp", "gmp-compliance-audit-05.webp", "gmp-compliance-audit-06.webp",
+      "gmp-compliance-audit-07.webp", "gmp-compliance-audit-08.webp",
     ],
-    cover: "location-requirements-story-01.webp",
+    cover: "gmp-compliance-audit-01.webp",
     aspect: "wide",
   },
   {

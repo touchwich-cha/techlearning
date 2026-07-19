@@ -60,17 +60,21 @@ const manifest = {
       "food-factory-location-scene-20-020.png",
     ],
   },
-  "location-requirements-story": {
+  // NOTE: this source folder interleaves two unrelated frame sequences — real
+  // GMP factory scenes AND an unrelated fairytale/princess storyline. Every
+  // filename below was viewed individually and confirmed to be genuine
+  // factory/GMP content before inclusion. Do not add more frames from this
+  // folder without viewing them first (scene-1-1, 1-3, 6-1, 10-1, 13-1, 20-1
+  // are confirmed fairytale frames — never use them).
+  "gmp-compliance-audit": {
     srcDir: "Food Factory Location Requirements",
     files: [
-      "food-factory-location-requirements-scene-1-1-0208.png",
-      "food-factory-location-requirements-scene-1-3-0210.png",
       "food-factory-location-requirements-scene-1-2-0209.png",
       "food-factory-location-requirements-scene-2-2-0242.png",
-      "food-factory-location-requirements-scene-10-1-0211.png",
-      "food-factory-location-requirements-scene-15-2-0227.png",
-      "food-factory-location-requirements-scene-20-1-0244.png",
+      "food-factory-location-requirements-scene-9-2-0301.png",
       "food-factory-location-requirements-scene-24-2-0260.png",
+      "food-factory-location-requirements-scene-27-2-0272.png",
+      "food-factory-location-requirements-scene-15-2-0227.png",
       "food-factory-location-requirements-scene-28-1-0275.png",
       "food-factory-location-requirements-scene-30-1-0283.png",
     ],
