@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HR Solution Service — Website
 
-## Getting Started
+เว็บไซต์บริการ **สื่ออบรม (Learning Media) + ระบบงาน HR (HR Systems)** สองภาษา TH/EN
+สร้างด้วย Next.js 16 (App Router) · React 19 · Tailwind CSS v4 · Deploy บน Vercel
 
-First, run the development server:
+เดิมคือโปรเจกต์ "TechLearning" — รีแบรนด์และขยายเป็น HR Solution Service (2026-07)
+
+## โครงสร้างสำคัญ
+
+| ที่อยู่ | หน้าที่ |
+|---|---|
+| `app/site-data.ts` | **เนื้อหาทั้งเว็บอยู่ไฟล์เดียว** — brand, nav, copy, servicePillars, caseStudies, projectGroups, videos, contact |
+| `app/[locale]/[[...slug]]/page.tsx` | Router เดียวของทุกหน้า: `/{th\|en}/{slug}` (7 slugs) |
+| `components/pages/*` | คอมโพเนนต์ 7 หน้า (Home, Services, Portfolio, HrSystems, Process, About, Contact) |
+| `components/shared/*` | ProjectCard, CaseStudyCard, QuoteForm, VideoCard, ฯลฯ |
+| `app/globals.css` | Design system ทั้งหมด (design tokens + component styles) |
+| `scripts/prepare-images.mjs` | Pipeline คัด/ย่อ/บีบอัดรูปผลงานเป็น WebP |
+
+**เปลี่ยนชื่อแบรนด์:** แก้ที่ `brand` ใน `app/site-data.ts` จุดเดียว มีผลทั้งเว็บ (header, footer, SEO)
+
+## คำสั่งพัฒนา
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000 (redirect ไป /th)
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Image pipeline (เพิ่ม/เปลี่ยนรูปผลงาน)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+รูปต้นฉบับความละเอียดเต็มอยู่นอก repo (`C:/Users/touch/Desktop/ผลงาน E-Learning`)
+สคริปต์จะย่อเหลือกว้างสุด 1600px เป็น WebP q82 ลง `public/projects/<slug>/`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+node scripts/prepare-images.mjs
+# หรือชี้โฟลเดอร์ต้นทางอื่น:
+SRC_ROOT="D:/path/to/source" node scripts/prepare-images.mjs
+```
 
-## Learn More
+- แก้รายชื่อไฟล์ที่คัดไว้ใน `manifest` ภายในสคริปต์ (ระบุชื่อไฟล์ต้นทางตรง ๆ ตรวจทานได้)
+- สคริปต์สร้าง `public/og.jpg` (1200×630) สำหรับ social card ด้วย
+- เพิ่มกลุ่มใหม่แล้ว อย่าลืมเพิ่มรายการใน `projectGroups` ที่ `app/site-data.ts`
 
-To learn more about Next.js, take a look at the following resources:
+## ฟอร์มขอใบเสนอราคา (QuoteForm)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+ฟอร์มที่ `/th/contact#quote` ทำงานได้ 2 โหมด:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **ยังไม่ตั้งค่า endpoint (ค่าเริ่มต้น):** กดส่งแล้วเปิดโปรแกรมอีเมลของผู้เยี่ยมชม (mailto) พร้อมข้อมูลที่กรอกไว้ — ใช้ได้ทันทีไม่ต้องมี backend
+2. **ตั้งค่า `NEXT_PUBLIC_QUOTE_ENDPOINT`:** ฟอร์มจะ `POST` JSON (ส่งเป็น `Content-Type: text/plain` เพื่อเลี่ยง CORS preflight) ไปที่ URL ที่กำหนด
 
-## Deploy on Vercel
+ตัวอย่าง payload:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```json
+{ "name": "...", "company": "...", "email": "...", "phone": "...",
+  "interest": "...", "message": "...", "locale": "th", "submittedAt": "ISO date" }
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### ต่อกับ n8n
+1. สร้าง workflow: **Webhook node** (Method: POST) → **Code/Set node** `JSON.parse($json.body)` → **Gmail/SMTP node** ส่งเข้าอีเมลคุณ
+2. เอา Production Webhook URL ไปใส่ใน Vercel → Settings → Environment Variables → `NEXT_PUBLIC_QUOTE_ENDPOINT`
+3. **Redeploy** (ค่า `NEXT_PUBLIC_*` ถูกฝังตอน build — แก้แล้วต้อง build ใหม่เสมอ)
+
+### ต่อกับ Google Apps Script
+```js
+function doPost(e) {
+  const d = JSON.parse(e.postData.contents);
+  MailApp.sendEmail({
+    to: "touchwich.cha@gmail.com",
+    subject: `ขอใบเสนอราคา — ${d.interest} (${d.name})`,
+    body: `ชื่อ: ${d.name}\nบริษัท: ${d.company}\nอีเมล: ${d.email}\nโทร: ${d.phone}\n\n${d.message}`,
+  });
+  return ContentService.createTextOutput("ok");
+}
+```
+Deploy เป็น **Web App** (Execute as: Me · Who has access: Anyone) แล้วเอา URL ที่ลงท้าย `/exec` ไปใส่ `NEXT_PUBLIC_QUOTE_ENDPOINT`
+
+ทดสอบ local: ใส่ค่าใน `.env.local` (ดูตัวอย่างที่ `.env.example`) แล้วรัน dev ใหม่
+
+## หน้า HR Systems (case studies)
+
+ข้อมูล 6 ระบบอยู่ใน `caseStudies` ที่ `app/site-data.ts` — **ไม่ระบุชื่อลูกค้า** (ระบุแค่ประเภทธุรกิจ)
+ถ้าภายหลังต้องการใส่ screenshot จริง: ใช้ภาพที่ **ลบข้อมูลลูกค้า/ข้อมูลจริงออกแล้วเท่านั้น** วางใน `public/systems/<slug>/` แล้วเพิ่ม field ใน caseStudies + render ใน `CaseStudyCard`
+
+## Deploy
+
+- Push ขึ้น `main` → Vercel build อัตโนมัติ (โปรเจกต์ผูก Git integration อยู่แล้ว)
+- โดเมนปัจจุบัน: `techlearning-sage.vercel.app` — กำหนดไว้ที่ `siteUrl` ใน `app/site-data.ts`
+- **ถ้าเปลี่ยนชื่อ Vercel project / ต่อ custom domain:** แก้ `siteUrl` จุดเดียวแล้ว redeploy (optional ทำเมื่อไหร่ก็ได้ เว็บทำงานได้ปกติโดยไม่ต้องเปลี่ยน)
+
+## หมายเหตุความปลอดภัย
+
+- อย่า commit token/credential ลง repo และอย่าฝัง token ใน remote URL
+- รูปและข้อความบนเว็บต้องไม่มีชื่อลูกค้า/ข้อมูลภายในของลูกค้า เว้นแต่ได้รับอนุญาตเป็นลายลักษณ์อักษร

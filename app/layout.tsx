@@ -3,49 +3,49 @@ import "@fontsource-variable/noto-sans-thai";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/montserrat";
 import "./globals.css";
-
-const siteUrl = "https://techlearning-sage.vercel.app";
+import { brand, siteUrl } from "@/app/site-data";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "TechLearning — สื่อการเรียนรู้ที่คนอยากเปิดดู",
-    template: "%s | TechLearning",
+    default: `${brand.name} — สื่ออบรมและระบบงาน HR`,
+    template: `%s | ${brand.name}`,
   },
   description:
-    "ออกแบบ E-Learning, สื่ออบรมความปลอดภัย, GMP, Infographic และสื่อการเรียนรู้สำหรับองค์กร โดย TechLearning — เปลี่ยนเนื้อหาที่ซับซ้อนให้เป็นสื่อภาพที่เข้าใจง่ายและนำไปใช้ได้จริง",
+    "สื่ออบรม GMP / Food Safety แบบ 3D กว่า 300 เฟรม และระบบงาน HR อัตโนมัติบน Google Workspace — คัดกรองใบสมัคร Onboarding ประเมิน KPI บันทึกงานภาคสนาม และแจ้งเตือนเอกสาร ใช้งานจริงแล้ว 6 ระบบ",
   keywords: [
-    "E-Learning", "สื่ออบรม", "Safety", "GMP", "Infographic", "สื่อการเรียนรู้",
-    "TechLearning", "training media", "corporate learning", "e-learning design"
+    "สื่ออบรม", "GMP", "Food Safety", "E-Learning", "ระบบ HR", "HR automation",
+    "ระบบประเมินผล KPI", "Onboarding", "Google Apps Script", brand.name,
+    "training media", "HR systems", "hr solution",
   ],
-  authors: [{ name: "TechLearning" }],
-  creator: "TechLearning",
-  publisher: "TechLearning",
+  authors: [{ name: brand.name }],
+  creator: brand.name,
+  publisher: brand.name,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: "TechLearning — สื่อการเรียนรู้ที่คนอยากเปิดดู",
-    description: "เปลี่ยนเนื้อหาที่ซับซ้อนให้เป็นสื่อภาพที่เข้าใจง่ายและนำไปใช้ได้จริง",
+    title: `${brand.name} — สื่ออบรมและระบบงาน HR`,
+    description: "สื่ออบรมที่คนอยากดู ระบบงาน HR ที่ทำงานแทนคุณ — ผลงานจริง ระบบใช้งานจริง",
     url: siteUrl,
-    siteName: "TechLearning",
+    siteName: brand.name,
     locale: "th_TH",
     type: "website",
     images: [
       {
-        url: `${siteUrl}/projects/gmp-pest-control/gmp-pest-control-01.png`,
-        width: 1920,
-        height: 1080,
-        alt: "TechLearning — GMP Training Media",
+        url: `${siteUrl}/og.jpg`,
+        width: 1200,
+        height: 630,
+        alt: `${brand.name} — Food Safety training media`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TechLearning — สื่อการเรียนรู้ที่คนอยากเปิดดู",
-    description: "เปลี่ยนเนื้อหาที่ซับซ้อนให้เป็นสื่อภาพที่เข้าใจง่ายและนำไปใช้ได้จริง",
+    title: `${brand.name} — สื่ออบรมและระบบงาน HR`,
+    description: "สื่ออบรมที่คนอยากดู ระบบงาน HR ที่ทำงานแทนคุณ — ผลงานจริง ระบบใช้งานจริง",
   },
   alternates: {
     languages: {
