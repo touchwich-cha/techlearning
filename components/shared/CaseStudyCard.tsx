@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { CaseStudy, Locale } from "@/app/site-data";
 
 const caseIcons: Record<CaseStudy["icon"], string> = {
@@ -24,17 +25,28 @@ export function CaseStudyCard({ study, locale, index }: { study: CaseStudy; loca
   const tone = tones[index % tones.length];
   return (
     <article className="case-card" style={{ "--card-delay": `${index * 0.08}s` } as React.CSSProperties}>
-      <div className={`case-visual tone-${tone}`} aria-hidden="true">
-        <span className="case-visual-dot d1" />
-        <span className="case-visual-dot d2" />
-        <span className="case-visual-dot d3" />
-        <svg className="case-visual-icon ghost" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-          <path d={caseIcons[study.icon]} />
-        </svg>
-        <svg className="case-visual-icon" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-          <path d={caseIcons[study.icon]} />
-        </svg>
-      </div>
+      {study.images?.[0] ? (
+        <div className="case-visual case-visual-photo">
+          <Image
+            src={`/systems/${study.slug}/${study.images[0]}`}
+            alt={locale === "th" ? `แผนภาพระบบ ${study.title.th}` : `${study.title.en} system diagram`}
+            fill
+            sizes="(max-width: 720px) 100vw, 50vw"
+          />
+        </div>
+      ) : (
+        <div className={`case-visual tone-${tone}`} aria-hidden="true">
+          <span className="case-visual-dot d1" />
+          <span className="case-visual-dot d2" />
+          <span className="case-visual-dot d3" />
+          <svg className="case-visual-icon ghost" width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+            <path d={caseIcons[study.icon]} />
+          </svg>
+          <svg className="case-visual-icon" width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+            <path d={caseIcons[study.icon]} />
+          </svg>
+        </div>
+      )}
       <div className="case-card-top">
         <div className="case-badges">
           <span className="sector-tag">{study.sector[locale]}</span>

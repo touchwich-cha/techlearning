@@ -220,6 +220,8 @@ export type CaseStudy = {
   flow: { th: readonly string[]; en: readonly string[] };
   stack: readonly string[];
   status: { th: string; en: string };
+  /** Optional supporting diagrams under public/systems/<slug>/ — never a real client screenshot. */
+  images?: readonly string[];
 };
 
 export const caseStudies: readonly CaseStudy[] = [
@@ -291,6 +293,7 @@ export const caseStudies: readonly CaseStudy[] = [
     },
     stack: ["Google Apps Script", "Google Sheets", "Gmail"],
     status: { th: "ใช้งานจริง", en: "In production" },
+    images: ["onboardpro-01.webp"],
   },
   {
     slug: "kpi-evaluation",
@@ -537,6 +540,18 @@ export const projectGroups = [
     aspect: "square",
   },
   {
+    slug: "logical-test-workflow",
+    title: { th: "Logical Test — เบื้องหลังการออกแบบระบบ", en: "Logical Test — behind the system design" },
+    type: { th: "Assessment engine diagrams", en: "Assessment engine diagrams" },
+    description: {
+      th: "แผนภาพโครงสร้างเอนจินประเมินผลและหน้าจอผู้ใช้ ที่เปลี่ยนแบบทดสอบกระดาษให้เป็นระบบประมวลผลอัตโนมัติ",
+      en: "Assessment-engine architecture and interface diagrams that turn a paper test into an automated scoring system.",
+    },
+    images: ["logical-test-03.webp", "logical-test-04.webp"],
+    cover: "logical-test-03.webp",
+    aspect: "wide",
+  },
+  {
     slug: "gamifications",
     title: { th: "Gamification System", en: "Gamification System" },
     type: { th: "Learning mechanics", en: "Learning mechanics" },
@@ -547,6 +562,18 @@ export const projectGroups = [
     images: ["gamifications-01.png", "gamifications-02.png", "gamifications-03.png"],
     cover: "gamifications-01.png",
     aspect: "square",
+  },
+  {
+    slug: "gamification-mechanics",
+    title: { th: "Gamification — กลไกและสถาปัตยกรรมระบบ", en: "Gamification — mechanics & architecture" },
+    type: { th: "Game design diagrams", en: "Game design diagrams" },
+    description: {
+      th: "แผนภาพวงจรการเล่น (Challenge → Action → Reward → Progress) และโครงสร้างระบบที่พัฒนาบน Google Workspace",
+      en: "The play-loop (Challenge → Action → Reward → Progress) and the system architecture, built on Google Workspace.",
+    },
+    images: ["gamifications-04.webp", "gamifications-05.webp", "gamifications-06.webp"],
+    cover: "gamifications-05.webp",
+    aspect: "wide",
   },
   {
     slug: "gmp-pest-control",

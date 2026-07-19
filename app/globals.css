@@ -1896,6 +1896,17 @@ button, input, textarea, select { font: inherit; }
   overflow: hidden;
 }
 
+.case-visual-photo {
+  height: 220px;
+  background: var(--surface-container-lowest);
+  border-bottom: 1px solid var(--border-line);
+}
+
+.case-visual-photo img {
+  object-fit: contain;
+  padding: 14px;
+}
+
 .case-visual.tone-teal { background: linear-gradient(135deg, rgba(13, 148, 136, 0.16), rgba(13, 148, 136, 0.04)); color: var(--secondary); }
 .case-visual.tone-mint { background: linear-gradient(135deg, rgba(45, 212, 191, 0.18), rgba(45, 212, 191, 0.05)); color: #0F766E; }
 .case-visual.tone-amber { background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(245, 158, 11, 0.04)); color: #92400E; }
