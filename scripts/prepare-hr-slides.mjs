@@ -9,19 +9,24 @@ import { mkdir, stat } from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
 
+// NOTE: output paths must live under public/systems/<slug>/ to match how
+// additionalTools / caseStudies images are addressed (/systems/${slug}/${file}) —
+// NOT public/projects/, which is reserved for portfolio `projectGroups` (addressed
+// as /projects/${slug}/${file}). Mixing the two silently 404s in production even
+// though it works in dev, because the URL is built from the slug, not the file's
+// actual folder.
 const SRC_DIR =
   "C:/Users/touch/AppData/Local/Temp/claude/C--Users-touch-Desktop-------E-Learning/94d9a5e6-5e0b-4962-a55d-6ba9ffdd7fdc/scratchpad/hr-slides-review/clean";
-const PROJECTS_ROOT = path.resolve(import.meta.dirname, "..", "public", "projects");
 const SYSTEMS_ROOT = path.resolve(import.meta.dirname, "..", "public", "systems");
 const MAX_WIDTH = 1600;
 const WEBP_QUALITY = 82;
 
 const jobs = [
-  { src: "Modern_HR_Reimagined__slide-06.png", out: path.join(PROJECTS_ROOT, "logical-test", "logical-test-03.webp") },
-  { src: "Modern_HR_Transformation__slide-03.png", out: path.join(PROJECTS_ROOT, "logical-test", "logical-test-04.webp") },
-  { src: "Modern_HR_Reimagined__slide-10.png", out: path.join(PROJECTS_ROOT, "gamifications", "gamifications-04.webp") },
-  { src: "Modern_HR_Reimagined__slide-11.png", out: path.join(PROJECTS_ROOT, "gamifications", "gamifications-05.webp") },
-  { src: "Modern_HR_Transformation__slide-07.png", out: path.join(PROJECTS_ROOT, "gamifications", "gamifications-06.webp") },
+  { src: "Modern_HR_Reimagined__slide-06.png", out: path.join(SYSTEMS_ROOT, "logical-test", "logical-test-03.webp") },
+  { src: "Modern_HR_Transformation__slide-03.png", out: path.join(SYSTEMS_ROOT, "logical-test", "logical-test-04.webp") },
+  { src: "Modern_HR_Reimagined__slide-10.png", out: path.join(SYSTEMS_ROOT, "gamifications", "gamifications-04.webp") },
+  { src: "Modern_HR_Reimagined__slide-11.png", out: path.join(SYSTEMS_ROOT, "gamifications", "gamifications-05.webp") },
+  { src: "Modern_HR_Transformation__slide-07.png", out: path.join(SYSTEMS_ROOT, "gamifications", "gamifications-06.webp") },
   { src: "Modern_HR_Reimagined__slide-08.png", out: path.join(SYSTEMS_ROOT, "onboardpro", "onboardpro-01.webp") },
 ];
 

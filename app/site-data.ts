@@ -433,6 +433,39 @@ export const caseStudies: readonly CaseStudy[] = [
   },
 ];
 
+// ─── Additional HR-adjacent tooling (shown separately — not counted in the 6 systems above) ───
+
+export type AdditionalTool = {
+  slug: string;
+  title: { th: string; en: string };
+  description: { th: string; en: string };
+  stack: readonly string[];
+  images: readonly string[];
+};
+
+export const additionalTools: readonly AdditionalTool[] = [
+  {
+    slug: "logical-test",
+    title: { th: "Logical Test — ระบบทดสอบเชิงตรรกะ", en: "Logical Test — logical reasoning assessment" },
+    description: {
+      th: "แบบทดสอบเชิงตรรกะสำหรับคัดกรองผู้สมัครงาน แทนที่การตรวจกระดาษด้วยมือ ด้วยหน้าจอทำแบบทดสอบและประมวลผลคะแนนอัตโนมัติแบบเรียลไทม์",
+      en: "A logical-reasoning test for candidate screening — replaces manual paper grading with an online test interface and real-time automated scoring.",
+    },
+    stack: ["Google Apps Script", "Google Sheets"],
+    images: ["logical-test-03.webp", "logical-test-04.webp"],
+  },
+  {
+    slug: "gamifications",
+    title: { th: "Gamification System — ระบบการเรียนรู้เชิงเกม", en: "Gamification System — game-based learning" },
+    description: {
+      th: "เปลี่ยนการอบรมแบบบรรยายให้เป็นภารกิจที่เล่นผ่านหน้าจอ พร้อมระบบคะแนนและความก้าวหน้า เพื่อกระตุ้นให้ผู้เรียนอยากเรียนต่อจนจบ",
+      en: "Turns lecture-style training into on-screen missions with scoring and progress tracking, designed to keep learners engaged to the end.",
+    },
+    stack: ["Google Apps Script", "Google Sheets"],
+    images: ["gamifications-04.webp", "gamifications-05.webp", "gamifications-06.webp"],
+  },
+];
+
 // ─── Portfolio groups (new curated Food Safety series first) ───
 
 export const projectGroups = [
@@ -540,18 +573,6 @@ export const projectGroups = [
     aspect: "square",
   },
   {
-    slug: "logical-test-workflow",
-    title: { th: "Logical Test — เบื้องหลังการออกแบบระบบ", en: "Logical Test — behind the system design" },
-    type: { th: "Assessment engine diagrams", en: "Assessment engine diagrams" },
-    description: {
-      th: "แผนภาพโครงสร้างเอนจินประเมินผลและหน้าจอผู้ใช้ ที่เปลี่ยนแบบทดสอบกระดาษให้เป็นระบบประมวลผลอัตโนมัติ",
-      en: "Assessment-engine architecture and interface diagrams that turn a paper test into an automated scoring system.",
-    },
-    images: ["logical-test-03.webp", "logical-test-04.webp"],
-    cover: "logical-test-03.webp",
-    aspect: "wide",
-  },
-  {
     slug: "gamifications",
     title: { th: "Gamification System", en: "Gamification System" },
     type: { th: "Learning mechanics", en: "Learning mechanics" },
@@ -562,18 +583,6 @@ export const projectGroups = [
     images: ["gamifications-01.png", "gamifications-02.png", "gamifications-03.png"],
     cover: "gamifications-01.png",
     aspect: "square",
-  },
-  {
-    slug: "gamification-mechanics",
-    title: { th: "Gamification — กลไกและสถาปัตยกรรมระบบ", en: "Gamification — mechanics & architecture" },
-    type: { th: "Game design diagrams", en: "Game design diagrams" },
-    description: {
-      th: "แผนภาพวงจรการเล่น (Challenge → Action → Reward → Progress) และโครงสร้างระบบที่พัฒนาบน Google Workspace",
-      en: "The play-loop (Challenge → Action → Reward → Progress) and the system architecture, built on Google Workspace.",
-    },
-    images: ["gamifications-04.webp", "gamifications-05.webp", "gamifications-06.webp"],
-    cover: "gamifications-05.webp",
-    aspect: "wide",
   },
   {
     slug: "gmp-pest-control",

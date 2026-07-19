@@ -2,6 +2,7 @@ import { caseStudies, type Locale } from "@/app/site-data";
 import { PageIntro } from "@/components/shared/PageIntro";
 import { CallToAction } from "@/components/shared/CallToAction";
 import { CaseStudyCard } from "@/components/shared/CaseStudyCard";
+import { AdditionalTools } from "@/components/shared/AdditionalTools";
 
 export function HrSystemsPage({ locale }: { locale: Locale }) {
   return (
@@ -18,6 +19,7 @@ export function HrSystemsPage({ locale }: { locale: Locale }) {
           <CaseStudyCard key={study.slug} study={study} locale={locale} index={index} />
         ))}
       </section>
+      <AdditionalTools locale={locale} />
       <CallToAction locale={locale} />
     </main>
   );

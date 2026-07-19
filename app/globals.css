@@ -2085,6 +2085,76 @@ button, input, textarea, select { font: inherit; }
 }
 
 /* ============================================
+   Additional Tools — supplementary to the 6 case studies
+   ============================================ */
+.additional-tools {
+  padding-block: clamp(72px, 8vw, 120px);
+  border-top: 1px solid var(--border-line);
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.tool-card {
+  padding: 24px;
+  background: var(--surface-container-lowest);
+  border: 1px solid var(--border-line);
+  border-radius: var(--radius-3xl);
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.tool-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tool-gallery-frame {
+  position: relative;
+  aspect-ratio: 16/10;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-container);
+}
+
+.tool-gallery-frame img { object-fit: cover; }
+
+.tool-card h3 {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+}
+
+.tool-card p {
+  margin: 0;
+  color: var(--on-surface-variant);
+  line-height: 1.7;
+  font-size: 14.5px;
+}
+
+.tool-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-line);
+}
+
+/* ============================================
    Mobile Navigation
    ============================================ */
 .nav-toggle {
@@ -2592,6 +2662,7 @@ button, input, textarea, select { font: inherit; }
   .step-content { grid-column: 2; }
 
   .case-grid { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr; }
   .pillar-grid { grid-template-columns: 1fr; }
   .pillar-bento { grid-template-columns: 1fr; }
   .video-duo { grid-template-columns: 1fr; }
