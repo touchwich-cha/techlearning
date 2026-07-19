@@ -548,13 +548,6 @@ export const copy = {
     selected: "ผลงานสื่อชุดล่าสุด",
     selectedSub: "ซีรีส์ Food Safety แบบ 3D กว่า 300 เฟรมจากงานจริง — คัดมาให้ชมบางส่วน",
     services: "สิ่งที่เราทำ",
-    serviceItems: [
-      ["01", "ชุดภาพเล่าเรื่อง GMP / Safety", "จำลองเหตุการณ์ในโรงงานด้วยตัวละคร 3D ให้เห็นทั้งความเสี่ยงและวิธีที่ถูกต้อง"],
-      ["02", "E-Learning Visuals", "เปลี่ยนคู่มือและ SOP เป็นบทเรียนภาพที่พร้อมใช้อบรมภายในองค์กร"],
-      ["03", "วิดีโอจอกว้างและแนวตั้ง", "จากสตอรีบอร์ดถึงวิดีโอเผยแพร่จริง ทั้ง 16:9 และ 9:16"],
-      ["04", "ระบบงาน HR อัตโนมัติ", "คัดใบสมัคร Onboarding ประเมินผล และแจ้งเตือน สร้างบน Google Workspace"],
-    ],
-    proof: ["ภาพฉากสื่ออบรมที่ผลิตจริง", "โมดูล GMP / Food Safety", "ระบบงาน HR ที่ใช้งานจริง"],
   },
   en: {
     quote: "Request a quote",
@@ -567,12 +560,5 @@ export const copy = {
     selected: "Latest media series",
     selectedSub: "A 3D food-safety series — 300+ frames from real production, curated highlights below.",
     services: "What we do",
-    serviceItems: [
-      ["01", "GMP / safety story scenes", "Simulate factory situations with 3D characters — the risk and the right practice."],
-      ["02", "E-Learning visuals", "Turn manuals and SOPs into visual lessons ready for internal training."],
-      ["03", "Widescreen & vertical video", "From storyboard to published video, in 16:9 and 9:16."],
-      ["04", "HR automation systems", "Screening, onboarding, evaluations, and alerts — built on Google Workspace."],
-    ],
-    proof: ["training frames produced", "GMP / food-safety modules", "HR systems in real use"],
   },
 } as const;

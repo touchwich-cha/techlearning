@@ -1,17 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { copy, nav, type Locale } from "@/app/site-data";
-
-function imagePath(slug: string, name: string) {
-  return `/projects/${slug}/${name}`;
-}
+import { brand, contact, copy, nav, type Locale } from "@/app/site-data";
 
 export function Shell({ locale, page, children }: { locale: Locale; page: string; children: React.ReactNode }) {
   const opposite = locale === "th" ? "en" : "th";
   const base = `/${locale}`;
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const header = document.querySelector(".site-header");
@@ -30,11 +26,20 @@ export function Shell({ locale, page, children }: { locale: Locale; page: string
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <div className="site-shell">
       <header className="site-header">
-        <Link className="brand" href={base} aria-label="TechLearning home">
-          <span className="brand-mark">TL</span><span>TechLearning</span>
+        <Link className="brand" href={base} aria-label={`${brand.name} home`} onClick={closeMenu}>
+          <span className="brand-mark">{brand.mark}</span><span>{brand.name}</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
           {nav[locale].map(([label, href]) => (
@@ -43,14 +48,38 @@ export function Shell({ locale, page, children }: { locale: Locale; page: string
         </nav>
         <div className="header-actions">
           <Link className="language" href={`/${opposite}${page ? `/${page}` : ""}`}>{opposite.toUpperCase()}</Link>
-          <Link className="button small" href={`${base}/contact`}>{copy[locale].quote}</Link>
+          <Link className="button small" href={`${base}/contact#quote`}>{copy[locale].quote}</Link>
+          <button
+            type="button"
+            className="nav-toggle"
+            aria-expanded={menuOpen}
+            aria-label={locale === "th" ? (menuOpen ? "ปิดเมนู" : "เปิดเมนู") : (menuOpen ? "Close menu" : "Open menu")}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span /><span /><span />
+          </button>
         </div>
       </header>
+      {menuOpen && (
+        <div className="mobile-menu">
+          <nav className="mobile-nav" aria-label="Mobile navigation">
+            {nav[locale].map(([label, href]) => (
+              <Link key={href || "home"} className={(page === href || (!page && !href)) ? "active" : ""} href={`${base}${href ? `/${href}` : ""}`} onClick={closeMenu}>{label}</Link>
+            ))}
+          </nav>
+          <div className="mobile-menu-actions">
+            <Link className="button" href={`${base}/contact#quote`} onClick={closeMenu}>{copy[locale].quote}</Link>
+            <Link className="language" href={`/${opposite}${page ? `/${page}` : ""}`} onClick={closeMenu}>
+              {opposite === "th" ? "ภาษาไทย" : "English"}
+            </Link>
+          </div>
+        </div>
+      )}
       {children}
       <footer className="site-footer">
-        <div><span className="brand-mark">TL</span><strong>TechLearning</strong></div>
-        <p>{locale === "th" ? "สื่อที่ช่วยให้คนเข้าใจ จดจำ และนำความรู้ไปใช้ได้จริง" : "Learning media people can understand, remember, and use."}</p>
-        <div className="footer-links"><a href="mailto:touchwich.cha@gmail.com">touchwich.cha@gmail.com</a><a href="tel:+66818121311">081-812-1311</a></div>
+        <div><span className="brand-mark">{brand.mark}</span><strong>{brand.name}</strong></div>
+        <p>{brand.tagline[locale]}</p>
+        <div className="footer-links"><a href={`mailto:${contact.email}`}>{contact.email}</a><a href={`tel:${contact.phone}`}>{contact.phoneDisplay}</a></div>
       </footer>
     </div>
   );

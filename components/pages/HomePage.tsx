@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
-import { copy, projectGroups, type Locale } from "@/app/site-data";
+import { copy, projectGroups, proofStats, type Locale } from "@/app/site-data";
 import { ProjectCard } from "@/components/shared/ProjectCard";
 import { ServicesPreview } from "@/components/shared/ServicesPreview";
 import { CallToAction } from "@/components/shared/CallToAction";
@@ -72,20 +72,23 @@ export function HomePage({ locale }: { locale: Locale }) {
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </Link>
-            <Link className="text-link" href={`/${locale}/services`}>
-              {t.services} <span>↗</span>
+            <Link className="button outline" href={`/${locale}/hr-systems`}>
+              {t.viewSystems}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
         </div>
         <div className="hero-visual">
           <Image
-            src="/projects/gmp-pest-control/gmp-pest-control-01.png"
-            alt={locale === "th" ? "ตัวอย่างสื่ออบรม GMP" : "GMP training media example"}
+            src="/projects/factory-lighting/factory-lighting-01.webp"
+            alt={locale === "th" ? "ตัวอย่างสื่ออบรม Food Safety แบบ 3D" : "3D food-safety training media example"}
             fill
             sizes="(max-width: 900px) 100vw, 48vw"
             priority
           />
-          <span className="visual-label">GMP / Visual learning / 2026</span>
+          <span className="visual-label">Food Safety Thailand series / 2026</span>
           <div
             className="hero-visual-glow"
             style={{
@@ -97,10 +100,10 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       {/* ─── PROOF STRIP ─── */}
       <div className="proof-strip">
-        {t.proof.map((item, i) => (
-          <span key={item}>
-            <b><AnimatedNumber value={i === 0 ? 5 : i === 1 ? 37 : 2} /></b>
-            {item}
+        {proofStats.map((stat) => (
+          <span key={stat.label.en}>
+            <b><AnimatedNumber value={stat.value} suffix={stat.suffix} /></b>
+            {stat.label[locale]}
           </span>
         ))}
       </div>
@@ -119,7 +122,7 @@ export function HomePage({ locale }: { locale: Locale }) {
         </div>
         <div className="center-button">
           <Link className="button outline" href={`/${locale}/portfolio`}>
-            {locale === "th" ? "ดูผลงานทั้ง 5 ชุด" : "Explore all 5 series"}
+            {locale === "th" ? "ดูผลงานสื่อทั้งหมด" : "Explore all media work"}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>

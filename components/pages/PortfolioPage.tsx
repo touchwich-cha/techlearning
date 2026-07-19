@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { projectGroups, type Locale } from "@/app/site-data";
 import { PageIntro } from "@/components/shared/PageIntro";
@@ -10,22 +10,38 @@ function imagePath(slug: string, name: string) {
   return `/projects/${slug}/${name}`;
 }
 
+const totalImages = projectGroups.reduce((count, project) => count + project.images.length, 0);
+
 export function PortfolioPage({ locale }: { locale: Locale }) {
   const [openIndex, setOpenIndex] = useState(0);
+  const detailRefs = useRef<(HTMLDetailsElement | null)[]>([]);
+
+  useEffect(() => {
+    const hash = decodeURIComponent(window.location.hash.slice(1));
+    if (!hash) return;
+    const index = projectGroups.findIndex((project) => project.slug === hash);
+    if (index < 0) return;
+    const detail = detailRefs.current[index];
+    if (!detail) return;
+    detail.open = true; // fires onToggle, which syncs openIndex
+    requestAnimationFrame(() => detail.scrollIntoView({ behavior: "smooth", block: "start" }));
+  }, []);
 
   return (
     <main>
       <PageIntro
-        eyebrow="Portfolio / 2026"
-        title={locale === "th" ? "ผลงานที่เล่าเรื่องด้วยภาพ" : "Work that makes ideas visible"}
+        eyebrow="Learning media / 2026"
+        title={locale === "th" ? "ผลงานสื่อที่เล่าเรื่องด้วยภาพ" : "Media work that makes ideas visible"}
         body={locale === "th"
-          ? "เปิดดูแต่ละชุดเพื่อสำรวจภาพทั้งหมด 37 ภาพ ตั้งแต่งานออกแบบระบบ ไปจนถึงสื่ออบรม GMP แบบเล่าเรื่อง"
-          : "Open each series to explore all 37 visuals, from system design to story-led GMP training."}
+          ? `เปิดดูแต่ละชุดเพื่อสำรวจทั้งหมด ${totalImages} ภาพ — จากซีรีส์ Food Safety แบบ 3D ชุดใหม่ ไปจนถึงงานออกแบบระบบการเรียนรู้`
+          : `Open each series to explore all ${totalImages} visuals — from the new 3D food-safety series to learning-system design.`}
       />
       <section className="portfolio-list section-pad">
         {projectGroups.map((project, index) => (
           <details
             key={project.slug}
+            id={project.slug}
+            ref={(el) => { detailRefs.current[index] = el; }}
             className="project-detail"
             open={index === openIndex}
             onToggle={(e) => {
@@ -33,7 +49,7 @@ export function PortfolioPage({ locale }: { locale: Locale }) {
             }}
           >
             <summary>
-              <span className="detail-index">0{index + 1}</span>
+              <span className="detail-index">{String(index + 1).padStart(2, "0")}</span>
               <div>
                 <p>{project.type[locale]}</p>
                 <h2>{project.title[locale]}</h2>

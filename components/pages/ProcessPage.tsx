@@ -1,6 +1,3 @@
-"use client";
-
-import { useRef, useEffect } from "react";
 import { type Locale } from "@/app/site-data";
 import { PageIntro } from "@/components/shared/PageIntro";
 import { CallToAction } from "@/components/shared/CallToAction";
@@ -16,28 +13,28 @@ const processIcons = [
 export function ProcessPage({ locale }: { locale: Locale }) {
   const steps = locale === "th"
     ? [
-        ["01", "Discovery", "ค้นหาโจทย์ร่วมกัน", "คุยเป้าหมาย กลุ่มผู้เรียน เนื้อหา และรูปแบบการใช้งานจริง"],
-        ["02", "Narrative", "วางโครงเรื่อง", "เปลี่ยนข้อมูลเป็นโครงเรื่อง ลำดับภาพ และภาษาที่ผู้เรียนเข้าใจ"],
-        ["03", "Creation", "ออกแบบและผลิต", "สร้างภาพ ตัวละคร Infographic และ Motion ตามทิศทางที่อนุมัติ"],
-        ["04", "Quality", "ตรวจทานร่วมกัน", "ส่งรอบตรวจ แก้ไข และตรวจความถูกต้องของเนื้อหา"],
-        ["05", "Deployment", "ส่งมอบพร้อมใช้", "ส่งไฟล์สำหรับ LMS ห้องอบรม การนำเสนอ หรือช่องทางที่ตกลง"],
+        ["01", "Discovery", "ค้นหาโจทย์ร่วมกัน", "คุยเป้าหมาย กลุ่มผู้ใช้ เนื้อหา และหน้างานจริง ทั้งงานสื่อและงานระบบ"],
+        ["02", "Blueprint", "วางโครงเรื่องและโครงระบบ", "งานสื่อ: โครงเรื่องและลำดับภาพ · งานระบบ: Flow การทำงานและโครงสร้างข้อมูล"],
+        ["03", "Creation", "ออกแบบและพัฒนา", "ผลิตภาพ ตัวละคร และวิดีโอ หรือพัฒนาระบบบน Google Workspace ตามทิศทางที่อนุมัติ"],
+        ["04", "Quality", "ตรวจทานร่วมกัน", "ส่งรอบตรวจ แก้ไข ทดสอบการใช้งานจริง และตรวจความถูกต้องของเนื้อหา"],
+        ["05", "Deployment", "ส่งมอบพร้อมใช้", "ส่งไฟล์สื่อพร้อมใช้อบรม หรือติดตั้งระบบพร้อมคู่มือและการสอนใช้งาน"],
       ]
     : [
-        ["01", "Discovery", "Find the brief together", "Align goals, learners, content, and real-world use."],
-        ["02", "Narrative", "Build the learning story", "Turn information into a visual sequence and learner-friendly language."],
-        ["03", "Creation", "Design and produce", "Create visuals, characters, infographics, and motion in the approved direction."],
-        ["04", "Quality", "Review together", "Share review rounds, refine, and check content accuracy."],
-        ["05", "Deployment", "Deliver ready to use", "Prepare files for your LMS, workshop, presentation, or chosen channel."],
+        ["01", "Discovery", "Find the brief together", "Align goals, users, content, and real workflows — media and systems alike."],
+        ["02", "Blueprint", "Story and system design", "Media: narrative and visual sequence. Systems: workflows and data structure."],
+        ["03", "Creation", "Design and build", "Produce visuals, characters, and video — or build the system on Google Workspace."],
+        ["04", "Quality", "Review together", "Review rounds, refinements, real-use testing, and content accuracy checks."],
+        ["05", "Deployment", "Deliver ready to use", "Training-ready media files, or an installed system with manuals and a walkthrough."],
       ];
 
   return (
     <main>
       <PageIntro
         eyebrow="Our process"
-        title={locale === "th" ? "เส้นทางโปร่งใสสู่ผลงานคุณภาพ" : "A clear path to quality work"}
+        title={locale === "th" ? "เส้นทางโปร่งใสสู่งานที่ใช้ได้จริง" : "A clear path to work that ships"}
         body={locale === "th"
-          ? "ตั้งแต่การปรึกษาครั้งแรกจนถึงการส่งมอบไฟล์สุดท้าย"
-          : "From the first conversation to final delivery."}
+          ? "ขั้นตอนเดียวกันทั้งงานสื่อและงานระบบ — ตั้งแต่คุยครั้งแรกจนถึงส่งมอบและสอนใช้งาน"
+          : "One process for media and systems — from first conversation to delivery and handover."}
       />
       <section className="timeline section-pad">
         {steps.map(([number, en, title, body], i) => (
