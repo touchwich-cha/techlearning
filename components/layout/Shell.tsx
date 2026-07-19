@@ -33,6 +33,25 @@ export function Shell({ locale, page, children }: { locale: Locale; page: string
     };
   }, [menuOpen]);
 
+  // Scroll-reveal: fades/slides in any ".reveal" element as it enters the viewport.
+  useEffect(() => {
+    const targets = document.querySelectorAll<HTMLElement>(".reveal:not(.reveal-in)");
+    if (targets.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("reveal-in");
+            observer.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
+    );
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [page]);
+
   const closeMenu = () => setMenuOpen(false);
 
   return (

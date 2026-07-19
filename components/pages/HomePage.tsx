@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useEffect, useState } from "react";
-import { copy, projectGroups, proofStats, type Locale } from "@/app/site-data";
+import { caseStudies, copy, projectGroups, proofStats, type Locale } from "@/app/site-data";
 import { ProjectCard } from "@/components/shared/ProjectCard";
 import { ServicesPreview } from "@/components/shared/ServicesPreview";
 import { CallToAction } from "@/components/shared/CallToAction";
@@ -62,6 +62,10 @@ export function HomePage({ locale }: { locale: Locale }) {
       {/* ─── HERO ─── */}
       <section className="hero section-pad">
         <div className="hero-copy">
+          <span className="hero-badge">
+            <span className="hero-badge-dot" />
+            {locale === "th" ? "สื่ออบรมและระบบ HR ที่ใช้งานจริง" : "Training media & HR systems, proven in production"}
+          </span>
           <p className="eyebrow">{t.eyebrow}</p>
           <h1>{t.hero}</h1>
           <p className="lede">{t.intro}</p>
@@ -89,10 +93,21 @@ export function HomePage({ locale }: { locale: Locale }) {
             priority
           />
           <span className="visual-label">Food Safety Thailand series / 2026</span>
+          <div className="hero-float-chip">
+            <span className="hero-float-chip-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </span>
+            <span>
+              <b>10</b>
+              {locale === "th" ? "โมดูล Food Safety" : "Food Safety modules"}
+            </span>
+          </div>
           <div
             className="hero-visual-glow"
             style={mousePos ? {
-              background: `radial-gradient(600px circle at ${mousePos.x - window.innerWidth * 0.55}px ${mousePos.y - 100}px, rgba(56,178,248,0.08), transparent 50%)`,
+              background: `radial-gradient(600px circle at ${mousePos.x - window.innerWidth * 0.55}px ${mousePos.y - 100}px, rgba(45,212,191,0.1), transparent 50%)`,
             } : undefined}
           />
         </div>
@@ -108,16 +123,30 @@ export function HomePage({ locale }: { locale: Locale }) {
         ))}
       </div>
 
+      {/* ─── MARQUEE — real systems & series in production ─── */}
+      <div className="marquee" aria-label={locale === "th" ? "รายชื่อระบบและผลงานที่ใช้งานจริง" : "Systems and series in production"}>
+        <div className="marquee-track">
+          {[...caseStudies, ...caseStudies].map((study, i) => (
+            <span key={`${study.slug}-${i}`} className="marquee-chip">
+              <span className="marquee-dot" />
+              {study.title[locale]}
+            </span>
+          ))}
+        </div>
+      </div>
+
       {/* ─── SELECTED WORK ─── */}
       <section className="section-pad work-section">
-        <div className="section-heading">
+        <div className="section-heading reveal">
           <p className="eyebrow">Selected work / 2026</p>
           <h2>{t.selected}</h2>
           <p>{t.selectedSub}</p>
         </div>
         <div className="project-grid featured">
           {projectGroups.slice(0, 4).map((project, i) => (
-            <ProjectCard key={project.slug} project={project} locale={locale} priority={i < 2} />
+            <div key={project.slug} className="reveal" style={{ "--reveal-delay": `${i * 0.1}s` } as React.CSSProperties}>
+              <ProjectCard project={project} locale={locale} priority={i < 2} />
+            </div>
           ))}
         </div>
         <div className="center-button">
@@ -132,7 +161,66 @@ export function HomePage({ locale }: { locale: Locale }) {
 
       <VideoCard locale={locale} />
       <ServicesPreview locale={locale} />
+      <ShowcaseSection locale={locale} />
       <CallToAction locale={locale} />
     </main>
+  );
+}
+
+function ShowcaseSection({ locale }: { locale: Locale }) {
+  const [primary, secondary] = caseStudies;
+  return (
+    <section className="showcase section-pad">
+      <div className="showcase-copy reveal">
+        <p className="eyebrow">{locale === "th" ? "จากงานจริง ไม่ใช่ demo" : "Real work, not a demo"}</p>
+        <h2>
+          {locale === "th" ? (
+            <>ระบบที่ทีม HR <em>ใช้งานอยู่จริง</em> ทุกวันนี้</>
+          ) : (
+            <>Systems HR teams <em>actually run</em> today</>
+          )}
+        </h2>
+        <p className="lede">
+          {locale === "th"
+            ? "ไม่ใช่ mockup — ทุกระบบด้านล่างสร้างและใช้งานจริงในองค์กร เราไม่ระบุชื่อลูกค้าเพื่อความเป็นส่วนตัว"
+            : "Not a mockup — every system below was built and runs in a real workplace. Client names are withheld for privacy."}
+        </p>
+        <div className="showcase-highlights">
+          {[primary, secondary].map((study) => (
+            <Link key={study.slug} href={`/${locale}/hr-systems`} className="showcase-highlight">
+              <span className="showcase-highlight-dot" />
+              <div>
+                <strong>{study.title[locale]}</strong>
+                <p>{study.outcome[locale]}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+        <Link className="button light" href={`/${locale}/hr-systems`}>
+          {locale === "th" ? "ดูทั้ง 6 ระบบ" : "See all 6 systems"}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </Link>
+      </div>
+      <div className="showcase-stack reveal">
+        <div className="showcase-frame showcase-frame-back">
+          <Image
+            src="/projects/food-factory-location/food-factory-location-03.webp"
+            alt=""
+            fill
+            sizes="(max-width: 900px) 70vw, 30vw"
+          />
+        </div>
+        <div className="showcase-frame showcase-frame-front">
+          <Image
+            src="/projects/factory-hidden-flaw/factory-hidden-flaw-05.webp"
+            alt={locale === "th" ? "ภาพจากซีรีส์ Food Safety" : "Frame from the Food Safety series"}
+            fill
+            sizes="(max-width: 900px) 80vw, 34vw"
+          />
+        </div>
+      </div>
+    </section>
   );
 }

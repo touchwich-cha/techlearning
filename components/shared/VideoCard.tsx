@@ -3,8 +3,9 @@ import { videos, type Locale } from "@/app/site-data";
 export function VideoCard({ locale }: { locale: Locale }) {
   return (
     <section className="video-section section-pad" style={{ paddingBlock: "clamp(64px, 8vw, 120px)" }}>
-      <div className="section-heading">
+      <div className="section-heading reveal">
         <p className="eyebrow">
+          <span className="hero-badge-dot" style={{ marginRight: 2 }} />
           {locale === "th" ? "วิดีโอเผยแพร่จริง" : "Published videos"}
         </p>
         <h2>

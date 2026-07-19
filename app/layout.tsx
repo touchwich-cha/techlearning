@@ -73,7 +73,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="alternate" hrefLang="th" href={`${siteUrl}/th`} />
         <link rel="alternate" hrefLang="en" href={`${siteUrl}/en`} />
         <link rel="alternate" hrefLang="x-default" href={`${siteUrl}/th`} />
-        <meta name="theme-color" content="#0F172A" />
+        <meta name="theme-color" content="#06302B" />
       </head>
       <body>{children}</body>
     </html>
