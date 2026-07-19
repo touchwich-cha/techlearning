@@ -143,7 +143,21 @@ export const servicePillars = [
 
 // ─── HR system case studies (anonymized: business type only, all facts verified) ───
 
-export const caseStudies = [
+export type CaseStudy = {
+  slug: string;
+  icon: "inbox" | "rocket" | "chart" | "shield" | "bell" | "chat";
+  sector: { th: string; en: string };
+  title: { th: string; en: string };
+  pain: { th: string; en: string };
+  solution: { th: readonly string[]; en: readonly string[] };
+  outcome: { th: string; en: string };
+  metric?: { th: string; en: string };
+  flow: { th: readonly string[]; en: readonly string[] };
+  stack: readonly string[];
+  status: { th: string; en: string };
+};
+
+export const caseStudies: readonly CaseStudy[] = [
   {
     slug: "resume-screening",
     icon: "inbox",
@@ -349,7 +363,7 @@ export const caseStudies = [
     stack: ["n8n", "LINE Messaging API", "AI / LLM", "Google Sheets"],
     status: { th: "ใช้งานจริง", en: "In production" },
   },
-] as const;
+];
 
 // ─── Portfolio groups (new curated Food Safety series first) ───
 
