@@ -11,7 +11,7 @@ export const brand = {
   },
 } as const;
 
-export const siteUrl = "https://techlearning-sage.vercel.app";
+export const siteUrl = "https://hr-solution-service.vercel.app";
 
 export const contact = {
   email: "touchwich.cha@gmail.com",
