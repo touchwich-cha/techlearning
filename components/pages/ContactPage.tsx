@@ -1,6 +1,5 @@
-"use client";
-
-import { type Locale } from "@/app/site-data";
+import { contact, type Locale } from "@/app/site-data";
+import { QuoteForm } from "@/components/shared/QuoteForm";
 
 export function ContactPage({ locale }: { locale: Locale }) {
   return (
@@ -10,20 +9,23 @@ export function ContactPage({ locale }: { locale: Locale }) {
           <p className="eyebrow">Start a project</p>
           <h1>
             {locale === "th"
-              ? "มีเนื้อหาอยู่แล้ว? มาทำให้คนอยากเปิดดู"
-              : "Have the content? Let's make it worth opening."}
+              ? "เล่าโจทย์ของคุณ รับใบเสนอราคาใน 24 ชม."
+              : "Tell us the brief — quote within 24 hours"}
           </h1>
           <p className="lede">
             {locale === "th"
-              ? "ส่งหัวข้อ เป้าหมาย กลุ่มผู้เรียน และกำหนดเวลาคร่าว ๆ มาได้เลย เราจะช่วยแนะนำรูปแบบสื่อที่เหมาะกับงาน"
-              : "Send your topic, objective, audience, and rough timeline. We'll recommend the right learning format."}
+              ? "กรอกฟอร์มด้านล่าง หรือติดต่อทางอีเมล/โทรศัพท์ก็ได้ เราจะช่วยแนะนำรูปแบบสื่อหรือระบบที่เหมาะกับโจทย์และงบของคุณ"
+              : "Use the form below or reach us by email or phone — we'll recommend the media format or system that fits your brief and budget."}
           </p>
         </div>
+        <div id="quote" className="quote-panel">
+          <QuoteForm locale={locale} />
+        </div>
         <div className="contact-methods">
-          <a href="mailto:touchwich.cha@gmail.com" className="contact-link">
+          <a href={`mailto:${contact.email}`} className="contact-link">
             <span className="contact-label">Email</span>
             <div className="contact-detail">
-              <strong>touchwich.cha@gmail.com</strong>
+              <strong>{contact.email}</strong>
               <small>{locale === "th" ? "ตอบกลับภายใน 24 ชั่วโมง" : "Replies within 24 hours"}</small>
             </div>
             <span className="contact-arrow">
@@ -32,11 +34,11 @@ export function ContactPage({ locale }: { locale: Locale }) {
               </svg>
             </span>
           </a>
-          <a href="tel:+66818121311" className="contact-link">
+          <a href={`tel:${contact.phone}`} className="contact-link">
             <span className="contact-label">Phone</span>
             <div className="contact-detail">
-              <strong>081-812-1311</strong>
-              <small>{locale === "th" ? "จ-ศ 09:00–18:00 น." : "Mon–Fri 09:00–18:00"}</small>
+              <strong>{contact.phoneDisplay}</strong>
+              <small>{contact.hours[locale]}</small>
             </div>
             <span className="contact-arrow">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
