@@ -17,14 +17,25 @@ export function PortfolioPage({ locale }: { locale: Locale }) {
   const detailRefs = useRef<(HTMLDetailsElement | null)[]>([]);
 
   useEffect(() => {
-    const hash = decodeURIComponent(window.location.hash.slice(1));
-    if (!hash) return;
-    const index = projectGroups.findIndex((project) => project.slug === hash);
-    if (index < 0) return;
-    const detail = detailRefs.current[index];
-    if (!detail) return;
-    detail.open = true; // fires onToggle, which syncs openIndex
-    requestAnimationFrame(() => detail.scrollIntoView({ behavior: "smooth", block: "start" }));
+    let timer: number | undefined;
+    const openFromHash = () => {
+      const hash = decodeURIComponent(window.location.hash.slice(1));
+      if (!hash) return;
+      const index = projectGroups.findIndex((project) => project.slug === hash);
+      if (index < 0) return;
+      const detail = detailRefs.current[index];
+      if (!detail) return;
+      detail.open = true; // fires onToggle, which syncs openIndex
+      // wait for the previously-open group to collapse so the scroll target is stable
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => detail.scrollIntoView({ behavior: "smooth", block: "start" }), 250);
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("hashchange", openFromHash);
+    };
   }, []);
 
   return (

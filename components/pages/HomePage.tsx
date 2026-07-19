@@ -47,7 +47,7 @@ function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string
 
 export function HomePage({ locale }: { locale: Locale }) {
   const t = copy[locale];
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -91,9 +91,9 @@ export function HomePage({ locale }: { locale: Locale }) {
           <span className="visual-label">Food Safety Thailand series / 2026</span>
           <div
             className="hero-visual-glow"
-            style={{
-              background: `radial-gradient(600px circle at ${mousePos.x - (typeof window !== "undefined" ? window.innerWidth * 0.55 : 0)}px ${mousePos.y - 100}px, rgba(56,178,248,0.08), transparent 50%)`,
-            }}
+            style={mousePos ? {
+              background: `radial-gradient(600px circle at ${mousePos.x - window.innerWidth * 0.55}px ${mousePos.y - 100}px, rgba(56,178,248,0.08), transparent 50%)`,
+            } : undefined}
           />
         </div>
       </section>
