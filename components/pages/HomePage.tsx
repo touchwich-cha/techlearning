@@ -11,17 +11,25 @@ import { VideoCard } from "@/components/shared/VideoCard";
 import { FeatureGrid } from "@/components/shared/FeatureGrid";
 
 function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const [display, setDisplay] = useState(0);
+  // Start at the real value so SSR, crawlers, link-preview bots and no-JS
+  // visitors always see the true number instead of 0. The count-up runs only
+  // as a progressive enhancement once the element scrolls into view.
+  const [display, setDisplay] = useState(value);
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // Respect reduced-motion: keep the real number, skip the animation.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          observer.disconnect();
           let current = 0;
           const step = Math.ceil(value / 30);
+          setDisplay(0);
           const timer = setInterval(() => {
             current += step;
             if (current >= value) {
@@ -30,7 +38,6 @@ function AnimatedNumber({ value, suffix = "" }: { value: number; suffix?: string
             }
             setDisplay(current);
           }, 40);
-          observer.disconnect();
         }
       },
       { threshold: 0.3 }
