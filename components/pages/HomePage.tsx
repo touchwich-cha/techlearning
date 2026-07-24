@@ -247,7 +247,7 @@ function ShowcaseSection({ locale }: { locale: Locale }) {
         <div className="showcase-frame showcase-frame-back">
           <Image
             src="/projects/food-factory-location/food-factory-location-03.webp"
-            alt=""
+            alt={locale === "th" ? "ภาพทำเลและสภาพแวดล้อมโรงงานอาหารจากซีรีส์ Food Safety" : "Food factory location and surroundings from the Food Safety series"}
             fill
             sizes="(max-width: 900px) 70vw, 30vw"
           />

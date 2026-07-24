@@ -3,7 +3,30 @@ import "@fontsource-variable/noto-sans-thai";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/montserrat";
 import "./globals.css";
-import { brand, siteUrl } from "@/app/site-data";
+import { brand, siteUrl, contact, servicePillars } from "@/app/site-data";
+
+const siteDescription =
+  "สื่ออบรม GMP / Food Safety แบบ 3D กว่า 300 เฟรม และระบบงาน HR อัตโนมัติบน Google Workspace — คัดกรองใบสมัคร Onboarding ประเมิน KPI บันทึกงานภาคสนาม และแจ้งเตือนเอกสาร ใช้งานจริงแล้ว 6 ระบบ";
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: brand.name,
+  url: siteUrl,
+  description: siteDescription,
+  email: contact.email,
+  telephone: contact.phone,
+  areaServed: "TH",
+  logo: `${siteUrl}/og.jpg`,
+  makesOffer: servicePillars.map((pillar) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: pillar.title.en,
+      description: pillar.intro.en,
+    },
+  })),
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -11,8 +34,7 @@ export const metadata: Metadata = {
     default: `${brand.name} — สื่ออบรมและระบบงาน HR`,
     template: `%s | ${brand.name}`,
   },
-  description:
-    "สื่ออบรม GMP / Food Safety แบบ 3D กว่า 300 เฟรม และระบบงาน HR อัตโนมัติบน Google Workspace — คัดกรองใบสมัคร Onboarding ประเมิน KPI บันทึกงานภาคสนาม และแจ้งเตือนเอกสาร ใช้งานจริงแล้ว 6 ระบบ",
+  description: siteDescription,
   keywords: [
     "สื่ออบรม", "GMP", "Food Safety", "E-Learning", "ระบบ HR", "HR automation",
     "ระบบประเมินผล KPI", "Onboarding", "Google Apps Script", brand.name,
@@ -47,12 +69,6 @@ export const metadata: Metadata = {
     title: `${brand.name} — สื่ออบรมและระบบงาน HR`,
     description: "สื่ออบรมที่คนอยากดู ระบบงาน HR ที่ทำงานแทนคุณ — ผลงานจริง ระบบใช้งานจริง",
   },
-  alternates: {
-    languages: {
-      "th": `${siteUrl}/th`,
-      "en": `${siteUrl}/en`,
-    },
-  },
   robots: {
     index: true,
     follow: true,
@@ -70,10 +86,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="th">
       <head>
-        <link rel="alternate" hrefLang="th" href={`${siteUrl}/th`} />
-        <link rel="alternate" hrefLang="en" href={`${siteUrl}/en`} />
-        <link rel="alternate" hrefLang="x-default" href={`${siteUrl}/th`} />
         <meta name="theme-color" content="#06302B" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
       </head>
       <body>{children}</body>
     </html>

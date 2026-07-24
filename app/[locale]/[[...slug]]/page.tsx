@@ -8,7 +8,7 @@ import { HrSystemsPage } from "@/components/pages/HrSystemsPage";
 import { ProcessPage } from "@/components/pages/ProcessPage";
 import { AboutPage } from "@/components/pages/AboutPage";
 import { ContactPage } from "@/components/pages/ContactPage";
-import { brand, type Locale } from "@/app/site-data";
+import { brand, siteUrl, type Locale } from "@/app/site-data";
 
 const pages = ["", "services", "portfolio", "hr-systems", "process", "about", "contact"] as const;
 
@@ -23,7 +23,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     contact: { th: "ติดต่อ", en: "Contact" },
   };
   const language = locale === "en" ? "en" : "th";
-  return { title: titles[page]?.[language] || brand.name };
+  const path = page ? `/${page}` : "";
+  return {
+    title: titles[page]?.[language] || brand.name,
+    alternates: {
+      canonical: `${siteUrl}/${language}${path}`,
+      languages: {
+        th: `${siteUrl}/th${path}`,
+        en: `${siteUrl}/en${path}`,
+        "x-default": `${siteUrl}/th${path}`,
+      },
+    },
+  };
 }
 
 export default async function LocalizedPage({ params }: { params: Promise<{ locale: string; slug?: string[] }> }) {
